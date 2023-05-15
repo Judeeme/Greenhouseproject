@@ -1,0 +1,14 @@
+{
+    "name": "greenhouseIOT",
+    "description": "A greenhouse monitoring system",
+    "version": "0.0.1",
+    "dependencies": {
+        "node-red-dashboard": "3.4.0"
+    },
+    "node-red": {
+        "settings": {
+            "flowFile": "flows.json",
+            "credentialsFile": "flows_cred.json"
+        }
+    }
+}
