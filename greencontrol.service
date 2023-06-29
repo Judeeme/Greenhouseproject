@@ -1,0 +1,13 @@
+[Unit]
+Description=Green house control software
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/python3 /home/okori/project/Greenhouseproject/control.py
+WorkingDirectory=/home/okori/project/Greenhouseproject
+Restart=always
+User=pi
+Group=pi
+
+[Install]
+WantedBy=multi-user.target

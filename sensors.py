@@ -1,16 +1,23 @@
 # import board
+# import adafruit_dht
 import Adafruit_DHT as DHT
 import random
 from time import sleep, time
 import json
 from math import pow
 import RPi.GPIO as GPIO
-import Adafruit_ADS1x15 as ADC
+# import Adafruit_ADS1x15 as ADC
+import board
+import busio
+import adafruit_ads1x15.ads1015 as ADS
+from adafruit_ads1x15.analog_in import AnalogIn
 
 class sensors():
     def __init__(self):
+        self.i2c = busio.I2C(board.SCL, board.SDA)
+        self.ads = ADS.ADS1015(self.i2c)
         self.co2Pin = 1
-        self.adc = ADC.ADS1115()
+        # self.adc = ADC.ADS1115()
         self.gain = 1
         self.tempHumPin = 26
         self.TempHum = DHT.DHT22
@@ -28,16 +35,28 @@ class sensors():
 
         return[float(f'{temperature:0.1f}'),float(f'{humidity:0.1f}')]
     def readSoilSensor(self):
-        soilVal = self.adc.read_adc(self.soilPin, gain=self.gain)/1000
+        self.soil = AnalogIn(self.ads, ADS.P1)
+        # print(self.soil.value)
+        soilVal = (self.soil.value)/1000
+        # pass
+        # soilVal = self.adc.read_adc(self.soilPin, gain=self.gain)/1000
         return[(float(f'{soilVal:0.5f}'))]
         
         # sleep(0.5)
     def readCO2Sensor(self):
-        co2Val = self.adc.read_adc(self.co2Pin,gain=self.gain)/1000
+        self.CO2 = AnalogIn(self.ads, ADS.P2)
+        # print(self.CO2.value)
+        co2Val = (self.CO2.value)/1000
+        # pass
+        # co2Val = self.adc.read_adc(self.co2Pin,gain=self.gain)/1000
         return[(float(f'{co2Val:0.5f}'))]
         # sleep(0.5)
     def readLightSensor(self):
-        lightVal = self.adc.read_adc(self.lightPin,gain=self.gain)/1000
+        self.light = AnalogIn(self.ads, ADS.P0)
+        # print(self.light.value)
+        lightVal = (self.light.value)/1000
+        # pass
+        # lightVal = self.adc.read_adc(self.lightPin,gain=self.gain)/1000
         return[(float(f'{lightVal:0.5f}'))]
     def readSensors(self):
         try:
@@ -67,6 +86,10 @@ class sensors():
     #     adc.close()
 
 # Testsensor = sensors()
+# Testsensor.readTempHumSensor()
+# Testsensor.readCO2Sensor()
+# Testsensor.readLightSensor()
+# Testsensor.readSoilSensor()
 # for i in range(5):
 #     print(Testsensor.readSensors())
 #     sleep(1)

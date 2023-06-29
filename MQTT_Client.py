@@ -75,16 +75,16 @@ class MQTT_Client():
 # "Sensor/Temperature/Value",
 # "Sensor/Humidity/Value",
 #  ]
-# mqtt = MQTT_Client("192.168.0.101", "raspi-home", "123456")
+# mqtt = MQTT_Client("192.168.1.161", "okori", "jude")
 # mqtt.connect()
 # while(1):
 
-# sleep(0.5)
-# mqtt._subscribe(mqttTopics[0])
-    # sleep(2)
-# mqtt._publish(mqttTopics[0],"10")
-# print("Sent")
-# sleep(0.25)
-# print(mqtt.message())
-# mqtt.disconnect()
-# mqtt._client.loop_stop()
+#     sleep(0.5)
+#     mqtt._subscribe(mqttTopics[0])
+#     sleep(2)
+#     mqtt._publish(mqttTopics[0],"10")
+#     print("Sent")
+#     sleep(0.25)
+#     print(mqtt.message())
+#     mqtt.disconnect()
+#     mqtt._client.loop_stop()
